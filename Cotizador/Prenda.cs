@@ -16,6 +16,5 @@
 			this.cantidadDeUnidades = cantidadDeUnidades;
 			this.precio = precio;
 		}
-
 	}
 }
