@@ -3,7 +3,32 @@
 	class Cotizador
 	{
 
+		public decimal Cotizar(decimal precioUnitario, int cantidadACotizar, bool esCamisa, bool mangaCorta, bool cuelloMao, bool chupin, bool premium, Vendedor vendedor, Prenda prenda)
+		{
 
+			decimal cotizacion = 0;
+
+			//Validar operacion caso de fallar devolver valor maximo.
+			if (ValidarOperacion(prenda.CantidadDeUnidades, cantidadACotizar) == false)
+			{
+				return decimal.MaxValue;
+			}
+
+			if (esCamisa)
+			{
+				cotizacion = CalcularCotizacionCamisa(precioUnitario, mangaCorta, cuelloMao, premium);
+			}
+			else
+			{
+				cotizacion = CalcularCotizacionPantalon(precioUnitario, chupin, premium);
+			}
+
+			cotizacion *= cantidadACotizar;
+
+			GenerarCotizacion(vendedor, prenda, cantidadACotizar, cotizacion);
+
+			return cotizacion;
+		}
 
 		public void GenerarCotizacion(Vendedor vendedor, Prenda prenda, int cantidadDeUnidadesCotizadas, decimal precioCotizacion)
 		{
@@ -65,16 +90,17 @@
 
 			return resultado;
 		}
-		
-		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar) {
-			if (cantidadUnidadesACotizar > cantidadUnidadesStock)
+
+		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar)
+		{
+			if (cantidadUnidadesStock >= cantidadUnidadesACotizar)
 			{
 				return true;
 			}
 
 			return false;
 		}
-		
+
 		public decimal ValidarPrecio(string precio)
 		{
 			bool exito = decimal.TryParse(precio, out decimal resultado);
@@ -88,8 +114,9 @@
 				return decimal.MaxValue;
 			}
 		}
-		
-		public int ValidarCantidad(string cantidad) {
+
+		public int ValidarCantidad(string cantidad)
+		{
 			bool exito = int.TryParse(cantidad, out int resultado);
 
 			if (exito)

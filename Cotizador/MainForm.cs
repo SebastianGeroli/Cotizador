@@ -55,13 +55,17 @@ namespace Cotizador
 			UpdateStockLabel();
 		}
 
+		//Con cada cambio que sucede vuelve a buscar si la tienda tiene una prenda que coincida con la busqueda, caso de encontrarla le pasamos al label el valor de stock
 		private void UpdateStockLabel()
 		{
 			Prenda prendaEncontrada = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
-			int stock = 0;
 			if (prendaEncontrada != null)
 			{
 				lblValorStock.Text = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).CantidadDeUnidades.ToString();
+			}
+			else
+			{
+				lblValorStock.Text = "0";
 			}
 
 		}
@@ -88,45 +92,42 @@ namespace Cotizador
 
 		private void btnCotizar_Click(object sender, EventArgs e)
 		{
-			Cotizador cotizador = new Cotizador();
-			decimal precioUnitario = cotizador.ValidarPrecio(textBoxPrecio.Text);
-			int cantidad = cotizador.ValidarCantidad(textBoxCantidad.Text);
-			decimal precioCotizacion = 0;
+			Cotizador cotizador = new Cotizador();// iniciar el cotizador
+
+			decimal precioUnitario = cotizador.ValidarPrecio(textBoxPrecio.Text);//validacion del dato dentro del textbox
+			int cantidad = cotizador.ValidarCantidad(textBoxCantidad.Text);//validacion del dato dentro del texbox
+
+			decimal cotizacion = 0;//Resultado final al pasar por la cotizacion
+
+			//Se busca la prenda dentro del listado de la tienda para luego guardar su referencia en la cotizacion
 			Prenda prendaEncontrada = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
-			int stock = 0;
+
+			int stock = 0;//stock usado para comparar mas adelante si la operacion es valida
 			if (prendaEncontrada != null)
 			{
 				stock = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).CantidadDeUnidades;
 			}
 
+			//Si alguna de las validaciones fallo mostrar un mensaje de error
 			if (precioUnitario == decimal.MaxValue || cantidad == int.MaxValue)
 			{
 				lblCotizacionFinal.Text = " - - - ";
-				MessageBox.Show("Precio unitario y cantidad deben ser numeros");
+				MessageBox.Show("Error: Precio unitario y cantidad deben ser numeros");
 
 			}
 			else
 			{
-				if (cotizador.ValidarOperacion(cantidad, stock))
+				cotizacion = cotizador.Cotizar(precioUnitario, cantidad, radioBtnCamisa.Checked, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, checkBoxChupin.Checked, radioButtonPremium.Checked, vendedor, prendaEncontrada);
+
+
+				if (cotizacion == decimal.MaxValue)
 				{
-					if (radioBtnCamisa.Checked)
-					{
-						precioCotizacion = cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
-						precioCotizacion *= cantidad;
-						lblCotizacionFinal.Text = (precioCotizacion).ToString();
-					}
-					else if (radioBtnPantalon.Checked)
-					{
-						precioCotizacion = cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
-						precioCotizacion *= cantidad;
-						lblCotizacionFinal.Text = (precioCotizacion).ToString();
-					}
-					cotizador.GenerarCotizacion(vendedor, prendaEncontrada, cantidad, precioCotizacion);
+					lblCotizacionFinal.Text = " - - - ";
+					MessageBox.Show("Operacion invalida: La cantidad de objetos a cotizar es mayor al stock");
 				}
 				else
 				{
-					lblCotizacionFinal.Text = " - - - ";
-					MessageBox.Show("Operacion invalida: La cantidad a cotizar es mayor al stock");
+					lblCotizacionFinal.Text = cotizacion.ToString();
 				}
 			}
 
@@ -136,6 +137,7 @@ namespace Cotizador
 		{
 			string message = "";
 
+			//Preparado del message a pasar al form que mostrara todas las cotizaciones
 			foreach (var cotizacion in vendedor.HistorialDeCotizaciones)
 			{
 				message += $"Cotizacion Numero: {cotizacion.NumeroIdentificacion} \n";
@@ -151,7 +153,7 @@ namespace Cotizador
 			}
 
 			CotizacionesForm cotizacionesForm = new CotizacionesForm();
-			cotizacionesForm.SetTextBox(message.Replace("\n", Environment.NewLine));
+			cotizacionesForm.SetTextBox(message.Replace("\n", Environment.NewLine));//Reemplazo de \n por newline ya que en el textbox falla el formateo
 			cotizacionesForm.Show();
 
 		}
