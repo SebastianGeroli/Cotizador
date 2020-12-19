@@ -1,7 +1,7 @@
 ﻿
 namespace Cotizador
 {
-	partial class Form1
+	partial class MainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -97,6 +97,7 @@ namespace Cotizador
 			this.lblHistorialCotizacion.Size = new System.Drawing.Size(107, 13);
 			this.lblHistorialCotizacion.TabIndex = 3;
 			this.lblHistorialCotizacion.Text = "Historial Cotizaciones";
+			this.lblHistorialCotizacion.Click += new System.EventHandler(this.lblHistorialCotizacion_Click);
 			// 
 			// radioBtnCamisa
 			// 

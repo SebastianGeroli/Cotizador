@@ -2,42 +2,7 @@
 {
 	class Cotizador
 	{
-		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar) {
-			if (cantidadUnidadesACotizar > cantidadUnidadesStock)
-			{
-				return true;
-			}
 
-			return false;
-		}
-
-		public decimal ValidarPrecio(string precio)
-		{
-			bool exito = decimal.TryParse(precio, out decimal resultado);
-
-			if (exito)
-			{
-				return resultado;
-			}
-			else
-			{
-				return decimal.MaxValue;
-			}
-		}
-
-
-		public int ValidarCantidad(string cantidad) {
-			bool exito = int.TryParse(cantidad, out int resultado);
-
-			if (exito)
-			{
-				return resultado;
-			}
-			else
-			{
-				return int.MaxValue;
-			}
-		}
 
 
 		public void GenerarCotizacion(Vendedor vendedor, Prenda prenda, int cantidadDeUnidadesCotizadas, decimal precioCotizacion)
@@ -45,7 +10,6 @@
 			Cotizacion cotizacion = new Cotizacion(vendedor.CodigoVendedor, prenda, cantidadDeUnidadesCotizadas, precioCotizacion);
 			vendedor.AgregarCotizacion(cotizacion);
 		}
-
 
 		public decimal CalcularCotizacionCamisa(decimal precio, bool mangaCorta, bool cuelloMao, bool premium)
 		{
@@ -67,7 +31,6 @@
 			return resultado;
 		}
 
-
 		public decimal CalcularCotizacionPantalon(decimal precio, bool chupin, bool premium)
 		{
 			decimal resultado;
@@ -84,7 +47,6 @@
 
 		}
 
-
 		private decimal ModificarPrecioPorCalidad(bool premium, decimal precio)
 		{
 
@@ -95,7 +57,6 @@
 			return precio;
 		}
 
-
 		private decimal ModificarPrecioEnPorcentaje(decimal precio, decimal porcentaje)
 		{
 			decimal resultado = precio;
@@ -104,5 +65,42 @@
 
 			return resultado;
 		}
+		
+		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar) {
+			if (cantidadUnidadesACotizar > cantidadUnidadesStock)
+			{
+				return true;
+			}
+
+			return false;
+		}
+		
+		public decimal ValidarPrecio(string precio)
+		{
+			bool exito = decimal.TryParse(precio, out decimal resultado);
+
+			if (exito)
+			{
+				return resultado;
+			}
+			else
+			{
+				return decimal.MaxValue;
+			}
+		}
+		
+		public int ValidarCantidad(string cantidad) {
+			bool exito = int.TryParse(cantidad, out int resultado);
+
+			if (exito)
+			{
+				return resultado;
+			}
+			else
+			{
+				return int.MaxValue;
+			}
+		}
+
 	}
 }

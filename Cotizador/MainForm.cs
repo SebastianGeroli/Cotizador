@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Cotizador
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
 		}
@@ -85,26 +85,61 @@ namespace Cotizador
 			Cotizador cotizador = new Cotizador();
 			decimal precioUnitario = cotizador.ValidarPrecio(textBoxPrecio.Text);
 			int cantidad = cotizador.ValidarCantidad(textBoxCantidad.Text);
+			decimal precioCotizacion = 0;
+			int stock = tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
 			if (precioUnitario == decimal.MaxValue || cantidad == int.MaxValue)
 			{
+				lblCotizacionFinal.Text = " - - - ";
+				MessageBox.Show("Precio unitario y cantidad deben ser numeros");
 
 			}
 			else
 			{
-				if (cotizador.ValidarOperacion(cantidad, tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked)))
+				if (cotizador.ValidarOperacion(cantidad, stock))
 				{
 					if (radioBtnCamisa.Checked)
 					{
-						precioUnitario = cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
-						lblCotizacionFinal.Text = (precioUnitario * cantidad).ToString();
+						precioCotizacion = cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
+						precioCotizacion *= cantidad;
+						lblCotizacionFinal.Text = (precioCotizacion).ToString();
 					}
 					else if (radioBtnPantalon.Checked)
 					{
-						precioUnitario = cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
-						lblCotizacionFinal.Text = (precioUnitario * cantidad).ToString();
+						precioCotizacion = cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
+						precioCotizacion *= cantidad;
+						lblCotizacionFinal.Text = (precioCotizacion).ToString();
 					}
+					Prenda NuevaPrenda = new Prenda(stock, radioButtonPremium.Checked, precioUnitario);
+					cotizador.GenerarCotizacion(vendedor, NuevaPrenda, cantidad, precioCotizacion);
+				}
+				else
+				{
+					lblCotizacionFinal.Text = " - - - ";
+					MessageBox.Show("Operacion invalida: La cantidad a cotizar es mayor al stock");
 				}
 			}
+
+		}
+
+		private void lblHistorialCotizacion_Click(object sender, EventArgs e)
+		{
+			string message = "";
+
+			foreach (var cotizacion in vendedor.HistorialDeCotizaciones)
+			{
+				message += $"Cotizacion Numero: {cotizacion.NumeroIdentificacion} \n";
+				message += $"Codigo Vendedor: {cotizacion.CodigoVendedor} \n";
+				message += $"Prenda Cotizada: {cotizacion.PrendaCotizada} \n";
+				message += $"Cantidad De unidades Cotizadas: {cotizacion.CantidadDeUnidades} \n";
+				message += $"Resultado Cotizacion: {cotizacion.ResultadoCotizacion} \n";
+				message += $"########## \n";
+				message += $" \n";
+
+
+			}
+			CotizacionesForm cotizacionesForm = new CotizacionesForm();
+			cotizacionesForm.SetTextBox(message.Replace("\n", Environment.NewLine));
+			cotizacionesForm.Show();
 
 		}
 	}

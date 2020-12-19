@@ -2,9 +2,10 @@ F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\bin\Debug\Cotiz
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\bin\Debug\Cotizador.exe
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\bin\Debug\Cotizador.pdb
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.csprojAssemblyReference.cache
-F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.Form1.resources
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.Properties.Resources.resources
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.csproj.GenerateResource.cache
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.csproj.CoreCompileInputs.cache
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.exe
 F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.pdb
+F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.MainForm.resources
+F:\Sebastian\Cursos Global Citizen & Etermax\Cotizador\Cotizador\obj\Debug\Cotizador.CotizacionesForm.resources
