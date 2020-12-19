@@ -37,9 +37,17 @@ namespace Cotizador
 				m_prendasParaVender.Remove(prenda);
 			}
 		}
+
+		/// <summary>
+		/// Trata de obtener una prenda que cumpla con los parametros especificados, en caso de fallar devuelve null
+		/// </summary>
+		/// <param name="isCamisa"></param>
+		/// <param name="cuelloMao"></param>
+		/// <param name="mangaCorta"></param>
+		/// <param name="chupin"></param>
+		/// <returns></returns>
 		public Prenda GetPrenda (bool isCamisa, bool cuelloMao, bool mangaCorta, bool chupin)
 		{
-			int result = 0;
 			if (isCamisa)
 			{
 				foreach (var prenda in m_prendasParaVender)

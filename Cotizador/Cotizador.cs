@@ -30,12 +30,14 @@
 			return cotizacion;
 		}
 
+		//Genera la instancia de cotizacion y lo agrega a la lista de cotizaciones del vendedor
 		public void GenerarCotizacion(Vendedor vendedor, Prenda prenda, int cantidadDeUnidadesCotizadas, decimal precioCotizacion)
 		{
 			Cotizacion cotizacion = new Cotizacion(vendedor.CodigoVendedor, prenda, cantidadDeUnidadesCotizadas, precioCotizacion);
 			vendedor.AgregarCotizacion(cotizacion);
 		}
 
+		//Calcula segun las formulas para las camisas
 		public decimal CalcularCotizacionCamisa(decimal precio, bool mangaCorta, bool cuelloMao, bool premium)
 		{
 			decimal resultado;
@@ -56,6 +58,7 @@
 			return resultado;
 		}
 
+		//Calcula segun las formulas para los pantalones
 		public decimal CalcularCotizacionPantalon(decimal precio, bool chupin, bool premium)
 		{
 			decimal resultado;
@@ -72,6 +75,7 @@
 
 		}
 
+		//Modifica el precio segun la calidad
 		private decimal ModificarPrecioPorCalidad(bool premium, decimal precio)
 		{
 
@@ -82,6 +86,7 @@
 			return precio;
 		}
 
+		//Facilita la utilidad de calculos por porcentaje
 		private decimal ModificarPrecioEnPorcentaje(decimal precio, decimal porcentaje)
 		{
 			decimal resultado = precio;
@@ -91,6 +96,12 @@
 			return resultado;
 		}
 
+		/// <summary>
+		/// Valida la operacion si el numero de stock es mayor a la cantidad a cotizar devuelve true
+		/// </summary>
+		/// <param name="cantidadUnidadesStock"></param>
+		/// <param name="cantidadUnidadesACotizar"></param>
+		/// <returns></returns>
 		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar)
 		{
 			if (cantidadUnidadesStock >= cantidadUnidadesACotizar)
@@ -101,6 +112,12 @@
 			return false;
 		}
 
+
+		/// <summary>
+		/// Devuelve el valor del string pasado en decimal, en caso de fallo devuelve maxvalue
+		/// </summary>
+		/// <param name="precio"></param>
+		/// <returns></returns>
 		public decimal ValidarPrecio(string precio)
 		{
 			bool exito = decimal.TryParse(precio, out decimal resultado);
@@ -115,6 +132,11 @@
 			}
 		}
 
+		/// <summary>
+		/// Devuelve el valor del string pasado a int, en caso de fallo devuelve maxvalue
+		/// </summary>
+		/// <param name="cantidad"></param>
+		/// <returns></returns>
 		public int ValidarCantidad(string cantidad)
 		{
 			bool exito = int.TryParse(cantidad, out int resultado);
