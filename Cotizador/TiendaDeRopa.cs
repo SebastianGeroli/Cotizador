@@ -37,8 +37,7 @@ namespace Cotizador
 				m_prendasParaVender.Remove(prenda);
 			}
 		}
-
-		public int GetStock(bool isCamisa, bool cuelloMao, bool mangaCorta, bool chupin)
+		public Prenda GetPrenda (bool isCamisa, bool cuelloMao, bool mangaCorta, bool chupin)
 		{
 			int result = 0;
 			if (isCamisa)
@@ -59,7 +58,7 @@ namespace Cotizador
 					{
 						if (camisa.CuelloMao == cuelloMao && camisa.MangaCorta == mangaCorta)
 						{
-							return result = camisa.CantidadDeUnidades;
+							return camisa;
 						}
 					}
 				}
@@ -83,14 +82,14 @@ namespace Cotizador
 					{
 						if (pantalon.Chupin == chupin)
 						{
-							return result = pantalon.CantidadDeUnidades;
+							return  pantalon;
 						}
 					}
 				}
 
 			}
 
-			return result;
+			return null;
 		}
 	}
 }

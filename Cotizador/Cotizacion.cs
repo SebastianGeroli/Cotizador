@@ -1,4 +1,6 @@
-﻿namespace Cotizador
+﻿using System;
+
+namespace Cotizador
 {
 	class Cotizacion
 	{
@@ -21,6 +23,8 @@
 		public Cotizacion(string codigoVendedor, Prenda prendaCotizada, int cantidadDeunidades, decimal resultadoCotizacion)
 		{
 			m_numeroIdentificacion = CantidadDeCotizaciones;
+			DateTime dateTime = DateTime.Now;
+			m_fecha = dateTime.ToString("dd/MM/yyyy HH:mm:ss");
 			m_codigoVendedor = codigoVendedor;
 			m_prendaCotizada = prendaCotizada;
 			m_cantidadDeUnidades = cantidadDeunidades;

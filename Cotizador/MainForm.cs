@@ -57,7 +57,13 @@ namespace Cotizador
 
 		private void UpdateStockLabel()
 		{
-			lblValorStock.Text = tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).ToString();
+			Prenda prendaEncontrada = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
+			int stock = 0;
+			if (prendaEncontrada != null)
+			{
+				lblValorStock.Text = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).CantidadDeUnidades.ToString();
+			}
+
 		}
 
 		private void radioBtnPantalon_CheckedChanged(object sender, EventArgs e)
@@ -86,7 +92,13 @@ namespace Cotizador
 			decimal precioUnitario = cotizador.ValidarPrecio(textBoxPrecio.Text);
 			int cantidad = cotizador.ValidarCantidad(textBoxCantidad.Text);
 			decimal precioCotizacion = 0;
-			int stock = tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
+			Prenda prendaEncontrada = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked);
+			int stock = 0;
+			if (prendaEncontrada != null)
+			{
+				stock = tiendaDeRopa.GetPrenda(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).CantidadDeUnidades;
+			}
+
 			if (precioUnitario == decimal.MaxValue || cantidad == int.MaxValue)
 			{
 				lblCotizacionFinal.Text = " - - - ";
@@ -109,8 +121,7 @@ namespace Cotizador
 						precioCotizacion *= cantidad;
 						lblCotizacionFinal.Text = (precioCotizacion).ToString();
 					}
-					Prenda NuevaPrenda = new Prenda(stock, radioButtonPremium.Checked, precioUnitario);
-					cotizador.GenerarCotizacion(vendedor, NuevaPrenda, cantidad, precioCotizacion);
+					cotizador.GenerarCotizacion(vendedor, prendaEncontrada, cantidad, precioCotizacion);
 				}
 				else
 				{
@@ -128,6 +139,7 @@ namespace Cotizador
 			foreach (var cotizacion in vendedor.HistorialDeCotizaciones)
 			{
 				message += $"Cotizacion Numero: {cotizacion.NumeroIdentificacion} \n";
+				message += $"Fecha de Creacion: {cotizacion.Fecha} \n";
 				message += $"Codigo Vendedor: {cotizacion.CodigoVendedor} \n";
 				message += $"Prenda Cotizada: {cotizacion.PrendaCotizada} \n";
 				message += $"Cantidad De unidades Cotizadas: {cotizacion.CantidadDeUnidades} \n";
@@ -137,6 +149,7 @@ namespace Cotizador
 
 
 			}
+
 			CotizacionesForm cotizacionesForm = new CotizacionesForm();
 			cotizacionesForm.SetTextBox(message.Replace("\n", Environment.NewLine));
 			cotizacionesForm.Show();
