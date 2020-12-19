@@ -27,7 +27,18 @@ namespace Cotizador
 
 			Pantalon pantalonChupin = new Pantalon(1500, true);//Pantalon Chupin con stock de 1500
 			Pantalon pantalonNormal = new Pantalon(500);//Pantalon Normal con stock de 500
-
+			
+			//Instanciacion tienda de Ropa con el listado  de prendas a vender disponible
+			TiendaDeRopa tiendaDeRopa = new TiendaDeRopa(
+				"Expresso",
+				"Juan B. Justo 1500",
+				camisaMangaCortaNormal,
+				camisaMangaCortaMao,
+				camisaMangaLargaNormal,
+				camisaMangaLargaMao,
+				pantalonChupin,
+				pantalonNormal
+			);
 		}
 	}
 }

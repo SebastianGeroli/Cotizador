@@ -8,7 +8,22 @@ namespace Cotizador
 		private string m_direccion;
 		private List<Prenda> m_prendasParaVender = new List<Prenda>();
 
+		public string Nombre => m_nombre;
+		public string Direccion => m_direccion;
 		public List<Prenda> PrendasParaVender => m_prendasParaVender;
+
+
+		public TiendaDeRopa(string nombre, string direccion, params Prenda[] prendas)
+		{
+			m_nombre = nombre;
+			m_direccion = direccion;
+
+			foreach (var prenda in prendas)
+			{
+				AgregarPrenda(prenda);
+			}
+		}
+
 
 		public void AgregarPrenda(Prenda prenda)
 		{
