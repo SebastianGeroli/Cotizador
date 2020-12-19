@@ -5,10 +5,10 @@
 		public bool ValidarOperacion(int cantidadUnidadesStock, int cantidadUnidadesACotizar) {
 			if (cantidadUnidadesACotizar > cantidadUnidadesStock)
 			{
-				return false;
+				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		public decimal ValidarPrecio(string precio)
@@ -59,7 +59,7 @@
 
 			if (cuelloMao)
 			{
-				resultado *= ModificarPrecioEnPorcentaje(resultado, 3);
+				resultado = ModificarPrecioEnPorcentaje(resultado, 3);
 			}
 
 			resultado = ModificarPrecioPorCalidad(premium, resultado);
@@ -90,7 +90,7 @@
 
 			if (premium)
 			{
-				ModificarPrecioEnPorcentaje(precio, 30);
+				precio = ModificarPrecioEnPorcentaje(precio, 30);
 			}
 			return precio;
 		}
@@ -100,7 +100,7 @@
 		{
 			decimal resultado = precio;
 
-			resultado = resultado * (100 + porcentaje) * 100;
+			resultado = resultado * (100 + porcentaje) / 100;
 
 			return resultado;
 		}

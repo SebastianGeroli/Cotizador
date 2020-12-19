@@ -18,7 +18,7 @@ namespace Cotizador
 		}
 
 		TiendaDeRopa tiendaDeRopa;
-		Vendedor vendedor = new Vendedor("Jhon","Doe","0123456789");
+		Vendedor vendedor = new Vendedor("Jhon", "Doe", "0123456789");
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			//Generar prendas
@@ -95,11 +95,13 @@ namespace Cotizador
 				{
 					if (radioBtnCamisa.Checked)
 					{
-						cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
+						precioUnitario = cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
+						lblCotizacionFinal.Text = (precioUnitario * cantidad).ToString();
 					}
 					else if (radioBtnPantalon.Checked)
 					{
-						cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
+						precioUnitario = cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
+						lblCotizacionFinal.Text = (precioUnitario * cantidad).ToString();
 					}
 				}
 			}
