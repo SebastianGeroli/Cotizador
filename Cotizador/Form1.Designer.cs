@@ -108,6 +108,7 @@ namespace Cotizador
 			this.radioBtnCamisa.TabStop = true;
 			this.radioBtnCamisa.Text = "Camisa";
 			this.radioBtnCamisa.UseVisualStyleBackColor = true;
+			this.radioBtnCamisa.CheckedChanged += new System.EventHandler(this.radioBtnCamisa_CheckedChanged);
 			// 
 			// radioBtnPantalon
 			// 
@@ -119,6 +120,7 @@ namespace Cotizador
 			this.radioBtnPantalon.TabStop = true;
 			this.radioBtnPantalon.Text = "Pantalón";
 			this.radioBtnPantalon.UseVisualStyleBackColor = true;
+			this.radioBtnPantalon.CheckedChanged += new System.EventHandler(this.radioBtnPantalon_CheckedChanged);
 			// 
 			// checkBoxMangaCorta
 			// 
@@ -129,6 +131,7 @@ namespace Cotizador
 			this.checkBoxMangaCorta.TabIndex = 6;
 			this.checkBoxMangaCorta.Text = "Manga Corta";
 			this.checkBoxMangaCorta.UseVisualStyleBackColor = true;
+			this.checkBoxMangaCorta.CheckedChanged += new System.EventHandler(this.checkBoxMangaCorta_CheckedChanged);
 			// 
 			// checkBoxCuelloMao
 			// 
@@ -139,6 +142,7 @@ namespace Cotizador
 			this.checkBoxCuelloMao.TabIndex = 7;
 			this.checkBoxCuelloMao.Text = "Cuello Mao";
 			this.checkBoxCuelloMao.UseVisualStyleBackColor = true;
+			this.checkBoxCuelloMao.CheckedChanged += new System.EventHandler(this.checkBoxCuelloMao_CheckedChanged);
 			// 
 			// checkBoxChupin
 			// 
@@ -149,6 +153,7 @@ namespace Cotizador
 			this.checkBoxChupin.TabIndex = 8;
 			this.checkBoxChupin.Text = "Chupin";
 			this.checkBoxChupin.UseVisualStyleBackColor = true;
+			this.checkBoxChupin.CheckedChanged += new System.EventHandler(this.checkBoxChupin_CheckedChanged);
 			// 
 			// labelStock
 			// 

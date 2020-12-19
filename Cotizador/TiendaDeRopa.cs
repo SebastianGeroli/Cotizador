@@ -38,6 +38,62 @@ namespace Cotizador
 			}
 		}
 
+		public int GetStock(bool isCamisa, bool cuelloMao, bool mangaCorta, bool chupin)
+		{
+			int result = 0;
+			if (isCamisa)
+			{
+				foreach (var prenda in m_prendasParaVender)
+				{
+					Camisa camisa;
+					try
+					{
+						camisa = (Camisa)prenda;
+					}
+					catch (System.InvalidCastException)
+					{
+						camisa = null;
+					}
+
+					if (camisa != null)
+					{
+						if (camisa.CuelloMao == cuelloMao && camisa.MangaCorta == mangaCorta)
+						{
+							return result = camisa.CantidadDeUnidades;
+						}
+					}
+				}
+
+			}
+			else
+			{
+				foreach (var prenda in m_prendasParaVender)
+				{
+					Pantalon pantalon;
+					try
+					{
+						pantalon = (Pantalon)prenda;
+					}
+					catch (System.InvalidCastException)
+					{
+						pantalon = null;
+					}
+
+					if (pantalon != null)
+					{
+						if (pantalon.Chupin == chupin)
+						{
+							return result = pantalon.CantidadDeUnidades;
+						}
+					}
+				}
+
+			}
+
+			return result;
+		}
+
+
 		public decimal CalcularCotizacionCamisa(Camisa camisa)
 		{
 			decimal resultado;
