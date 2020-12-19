@@ -2,10 +2,20 @@
 {
 	class Prenda
 	{
-		private decimal m_precio;
-		private bool m_calidadPremium;
-		private int m_cantidadDeUnidades;
-		public decimal Precio => m_precio;
-		public bool CalidadPremium => m_calidadPremium;
+		protected decimal precio;
+		protected bool calidadPremium;
+		protected int cantidadDeUnidades;
+
+		public decimal Precio => precio;
+		public bool CalidadPremium => calidadPremium;
+		public int CantidadDeUnidades => cantidadDeUnidades;
+
+
+		public Prenda(int cantidadDeUnidades, bool calidadPremium = false, decimal precio = 0) {
+			this.calidadPremium = calidadPremium;
+			this.cantidadDeUnidades = cantidadDeUnidades;
+			this.precio = precio;
+		}
+
 	}
 }
