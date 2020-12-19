@@ -50,7 +50,7 @@ namespace Cotizador
 			this.textBoxPrecio = new System.Windows.Forms.TextBox();
 			this.lblSignoMoneda = new System.Windows.Forms.Label();
 			this.lblCantidad = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBoxCantidad = new System.Windows.Forms.TextBox();
 			this.groupBoxCotizacion = new System.Windows.Forms.GroupBox();
 			this.btnCotizar = new System.Windows.Forms.Button();
 			this.lblSignoMoneda2 = new System.Windows.Forms.Label();
@@ -101,6 +101,7 @@ namespace Cotizador
 			// radioBtnCamisa
 			// 
 			this.radioBtnCamisa.AutoSize = true;
+			this.radioBtnCamisa.Checked = true;
 			this.radioBtnCamisa.Location = new System.Drawing.Point(24, 52);
 			this.radioBtnCamisa.Name = "radioBtnCamisa";
 			this.radioBtnCamisa.Size = new System.Drawing.Size(59, 17);
@@ -176,6 +177,7 @@ namespace Cotizador
 			// radioButtonStandard
 			// 
 			this.radioButtonStandard.AutoSize = true;
+			this.radioButtonStandard.Checked = true;
 			this.radioButtonStandard.Location = new System.Drawing.Point(24, 30);
 			this.radioButtonStandard.Name = "radioButtonStandard";
 			this.radioButtonStandard.Size = new System.Drawing.Size(68, 17);
@@ -244,7 +246,7 @@ namespace Cotizador
 			// groupBoxPrecioYCantidad
 			// 
 			this.groupBoxPrecioYCantidad.Controls.Add(this.lblCantidad);
-			this.groupBoxPrecioYCantidad.Controls.Add(this.textBox1);
+			this.groupBoxPrecioYCantidad.Controls.Add(this.textBoxCantidad);
 			this.groupBoxPrecioYCantidad.Controls.Add(this.lblSignoMoneda);
 			this.groupBoxPrecioYCantidad.Controls.Add(this.textBoxPrecio);
 			this.groupBoxPrecioYCantidad.Location = new System.Drawing.Point(234, 317);
@@ -279,12 +281,12 @@ namespace Cotizador
 			this.lblCantidad.TabIndex = 20;
 			this.lblCantidad.Text = "Cantidad";
 			// 
-			// textBox1
+			// textBoxCantidad
 			// 
-			this.textBox1.Location = new System.Drawing.Point(208, 29);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 20);
-			this.textBox1.TabIndex = 19;
+			this.textBoxCantidad.Location = new System.Drawing.Point(208, 29);
+			this.textBoxCantidad.Name = "textBoxCantidad";
+			this.textBoxCantidad.Size = new System.Drawing.Size(100, 20);
+			this.textBoxCantidad.TabIndex = 19;
 			// 
 			// groupBoxCotizacion
 			// 
@@ -306,6 +308,7 @@ namespace Cotizador
 			this.btnCotizar.TabIndex = 0;
 			this.btnCotizar.Text = "Cotizar";
 			this.btnCotizar.UseVisualStyleBackColor = true;
+			this.btnCotizar.Click += new System.EventHandler(this.btnCotizar_Click);
 			// 
 			// lblSignoMoneda2
 			// 
@@ -380,7 +383,7 @@ namespace Cotizador
 		private System.Windows.Forms.GroupBox groupBoxStock;
 		private System.Windows.Forms.GroupBox groupBoxPrecioYCantidad;
 		private System.Windows.Forms.Label lblCantidad;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBoxCantidad;
 		private System.Windows.Forms.Label lblSignoMoneda;
 		private System.Windows.Forms.TextBox textBoxPrecio;
 		private System.Windows.Forms.GroupBox groupBoxCotizacion;

@@ -18,6 +18,7 @@ namespace Cotizador
 		}
 
 		TiendaDeRopa tiendaDeRopa;
+		Vendedor vendedor = new Vendedor("Jhon","Doe","0123456789");
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			//Generar prendas
@@ -40,6 +41,13 @@ namespace Cotizador
 				pantalonChupin,
 				pantalonNormal
 			);
+
+			//Labels
+			lblDireccionTienda.Text = tiendaDeRopa.Direccion;
+			lblNombreTienda.Text = tiendaDeRopa.Nombre;
+			lblNombreVendedor.Text = $"{vendedor.Nombre} {vendedor.Apellido}";
+
+			UpdateStockLabel();
 		}
 
 		private void radioBtnCamisa_CheckedChanged(object sender, EventArgs e)
@@ -47,7 +55,8 @@ namespace Cotizador
 			UpdateStockLabel();
 		}
 
-		private void UpdateStockLabel() { 
+		private void UpdateStockLabel()
+		{
 			lblValorStock.Text = tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked).ToString();
 		}
 
@@ -69,6 +78,32 @@ namespace Cotizador
 		private void checkBoxChupin_CheckedChanged(object sender, EventArgs e)
 		{
 			UpdateStockLabel();
+		}
+
+		private void btnCotizar_Click(object sender, EventArgs e)
+		{
+			Cotizador cotizador = new Cotizador();
+			decimal precioUnitario = cotizador.ValidarPrecio(textBoxPrecio.Text);
+			int cantidad = cotizador.ValidarCantidad(textBoxCantidad.Text);
+			if (precioUnitario == decimal.MaxValue || cantidad == int.MaxValue)
+			{
+
+			}
+			else
+			{
+				if (cotizador.ValidarOperacion(cantidad, tiendaDeRopa.GetStock(radioBtnCamisa.Checked, checkBoxCuelloMao.Checked, checkBoxMangaCorta.Checked, checkBoxChupin.Checked)))
+				{
+					if (radioBtnCamisa.Checked)
+					{
+						cotizador.CalcularCotizacionCamisa(precioUnitario, checkBoxMangaCorta.Checked, checkBoxCuelloMao.Checked, radioButtonPremium.Checked);
+					}
+					else if (radioBtnPantalon.Checked)
+					{
+						cotizador.CalcularCotizacionPantalon(precioUnitario, checkBoxChupin.Checked, radioButtonPremium.Checked);
+					}
+				}
+			}
+
 		}
 	}
 }
